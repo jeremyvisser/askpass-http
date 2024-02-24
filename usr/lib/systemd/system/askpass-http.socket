@@ -1,0 +1,11 @@
+[Unit]
+Description=Askpass HTTP server
+DefaultDependencies=no
+Conflicts=shutdown.target
+Before=cryptsetup.target
+
+[Socket]
+ListenStream=8080
+
+[Install]
+WantedBy=sysinit.target

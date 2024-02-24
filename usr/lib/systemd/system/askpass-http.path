@@ -1,0 +1,13 @@
+[Unit]
+Description=Askpass HTTP prompt watcher
+DefaultDependencies=no
+Conflicts=shutdown.target
+Before=cryptsetup.target paths.target shutdown.target
+
+[Path]
+DirectoryNotEmpty=/run/systemd/ask-password
+MakeDirectory=yes
+Unit=askpass-http.socket
+
+[Install]
+WantedBy=sysinit.target

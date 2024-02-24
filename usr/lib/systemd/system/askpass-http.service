@@ -1,0 +1,14 @@
+[Unit]
+Description=Askpass HTTP server
+DefaultDependencies=no
+Conflicts=shutdown.target
+Before=shutdown.target
+
+[Service]
+ExecStart=/usr/bin/askpass-http -listen fd:0 -idle=10s
+
+StandardInput=socket
+StandardOutput=journal
+
+[Install]
+WantedBy=sysinit.target
