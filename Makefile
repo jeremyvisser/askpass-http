@@ -1,20 +1,21 @@
-default: askpass-http
+GOOS=linux
+GOARCH=amd64
+GO := GOOS=$(GOOS) GOARCH=$(GOARCH) go
+GONATIVE := go
+
+all: askpass-http rpm
+
+rpm: askpass-http.rpm
 
 askpass-http: *.go
-	go build .
+	$(GO) build .
 
-rpm: askpass-http
-	rpmbuild -bb --build-in-place askpass-http.spec
+askpass-http.rpm: askpass-http util/build-deb/*.go
+	$(GONATIVE) run ./util/build-deb
 
-install:
-	install -v -m 644 \
-		usr/lib/systemd/system/* \
-		/usr/lib/systemd/system/
-	install -v -m 755 \
+clean:
+	rm -f \
 		askpass-http \
-		/usr/bin/
-	install -v -D -m 755 \
-		usr/lib/dracut/modules.d/98askpasshttp/module-setup.sh \
-		/usr/lib/dracut/modules.d/98askpasshttp/
+		askpass-http.rpm
 
-.PHONY: install
+.PHONY: all rpm clean
