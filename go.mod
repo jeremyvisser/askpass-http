@@ -1,4 +1,4 @@
-module jeremy.visser.name/askpass-http
+module jeremy.visser.name/go/askpass-http
 
 go 1.21.6
 
